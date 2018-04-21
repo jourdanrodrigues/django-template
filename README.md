@@ -6,7 +6,10 @@ Run the following to create a Django project with this repo as template:
 
 ```bash
 pip install django
-django-admin startproject --template=https://github.com/jourdanrodrigues/django-template/archive/master.zip --extension=po,yml,md,py <your_project_name> .
+mkdir <your_project_name> && django-admin startproject \
+  --template=https://github.com/jourdanrodrigues/django-template/archive/master.zip \
+  --extension=po,yml,md,py \
+  ${_} ./${_}
 ```
 
 You may remove this section from the `README.md` generated for your project.  
