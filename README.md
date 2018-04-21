@@ -1,6 +1,8 @@
 # {{ project_name }}
 
-### Using this template
+This project runs entirely on Docker containers. Make sure to [have it][docker-download] in your environment.
+
+## Using this template
 
 Run the following to create a Django project with this repo as template:
 
@@ -14,7 +16,7 @@ mkdir <your_project_name> && django-admin startproject \
 
 You may remove this section from the `README.md` generated for your project.  
 
-### Setup development environment
+## Setting up development environment
 
 Before doing anything, run the following:
 
@@ -22,8 +24,23 @@ Before doing anything, run the following:
 ./bin/setup_dev_env.sh
 ```
 
+To make your life slightly easier, the script [`run.sh`](run.sh) is there for you to run commands in your container.
+It's just a wrapper for the `run` command from `docker-compose`, so you might want to take a look at
+[its documentation][docker-compose-run].
+
 ### Running the server
 
 ```bash
-./run.sh up # run with "-d" for detached
+./run.sh up
 ```
+
+### Running the tests
+
+Since you'll probably be running this quite often ~~or not~~, the `test` param translates to `python manage.py test`.
+
+```bash
+./run.sh test
+```
+
+[docker-download]: https://www.docker.com/community-edition#/download
+[docker-compose-run]: https://docs.docker.com/compose/reference/run/
