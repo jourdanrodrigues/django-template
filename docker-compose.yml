@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+
+  db:
+    container_name: {{ project_name }}_db
+    image: postgres:10.3
+    environment:
+      - POSTGRES_PASSWORD={{ project_name }}_pass
+      - POSTGRES_USER={{ project_name }}_user
+      - POSTGRES_DB={{ project_name }}_db
+
+  server:
+    container_name: {{ project_name }}_server
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000 --migrate
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgres://{{ project_name }}_user:{{ project_name }}_pass@db/{{ project_name }}_db
+      - ALLOWED_HOSTS=*
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    links:
+      - db
