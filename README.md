@@ -34,13 +34,5 @@ It's just a wrapper for the `run` command from `docker-compose`, so you might wa
 ./run.sh up
 ```
 
-### Running the tests
-
-Since you'll probably be running this quite often ~~or not~~, the `test` param translates to `python manage.py test`.
-
-```bash
-./run.sh test
-```
-
 [docker-download]: https://www.docker.com/community-edition#/download
 [docker-compose-run]: https://docs.docker.com/compose/reference/run/
