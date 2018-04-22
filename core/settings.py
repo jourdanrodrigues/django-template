@@ -15,7 +15,7 @@ PRODUCTION = bool(int(os.getenv('PRODUCTION', 0)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.getenv('DEBUG', not PRODUCTION)))
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', [])
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '' if PRODUCTION else '*').split(',')
 
 DJANGO_APPS = [
     'django.contrib.admin',
