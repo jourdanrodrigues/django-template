@@ -34,7 +34,6 @@ class InstallCommand(install):
 setup(
     name='{{ project_name }}',
     version='0.0.0',
-    description='Track your pantry smartly.',
     long_description=long_description,
     classifiers=[],
     packages=find_packages(),
