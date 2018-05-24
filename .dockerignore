@@ -7,7 +7,7 @@ Dockerfile
 .env.example
 .gitignore
 *.py[cod]
-run.sh
+compose.sh
 setup.cfg
 
 # Directories

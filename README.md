@@ -31,7 +31,7 @@ It's just a wrapper for the `run` command from `docker-compose`, so you might wa
 ### Running the server
 
 ```bash
-./run.sh up
+./compose.sh up
 ```
 
 [docker-download]: https://www.docker.com/community-edition#/download
