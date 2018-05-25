@@ -13,14 +13,11 @@ services:
   server:
     container_name: {{ project_name }}_server
     build: .
-    command: python manage.py runserver 0.0.0.0:8000 --migrate
-    env_file:
-      - .env
+    command: gunicorn -b 0.0.0.0:8000 core.wsgi --log-file -
     environment:
       - DATABASE_URL=postgres://{{ project_name }}_user:{{ project_name }}_pass@db/{{ project_name }}_db
       - ALLOWED_HOSTS=*
-    volumes:
-      - .:/app
+      - PRODUCTION=1
     ports:
       - "8000:8000"
     links:
