@@ -24,15 +24,21 @@ Before doing anything, run the following:
 ./bin/setup_dev_env.sh
 ```
 
-To make your life slightly easier, the script [`run.sh`](run.sh) is there for you to run commands in your container.
-It's just a wrapper for the `run` command from `docker-compose`, so you might want to take a look at
-[its documentation][docker-compose-run].
+To make your life slightly easier, the script [`compose.sh`](compose.sh) is there for you to run commands in your
+container. It's just a wrapper for `docker-compose`, so you might want to take a look at
+[its documentation][docker-compose-docs].
 
-### Running the server
+### Running the production version
 
 ```bash
 ./compose.sh up
 ```
 
+### Running the development version
+
+```bash
+./compose.sh dev up
+```
+
 [docker-download]: https://www.docker.com/community-edition#/download
-[docker-compose-run]: https://docs.docker.com/compose/reference/run/
+[docker-compose-docs]: https://docs.docker.com/compose/reference/
