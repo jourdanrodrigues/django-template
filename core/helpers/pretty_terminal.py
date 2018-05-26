@@ -12,13 +12,15 @@ REVERSE = '\033[7m'
 class PrettyText:
     def __init__(self, message: str):
         self.__message = message
-        self.__has_end = False
 
     def __str__(self):
         return self.__message
 
     def __set_modifier_and_return_self(self, modifier: str):
-        self.__message = modifier + self.__message + (END if self.__has_end else '')
+        self.__message = modifier + self.__message
+        if END not in self.__message:
+            self.__message += END
+        return self
 
     def pink(self):
         return self.__set_modifier_and_return_self(PINK)

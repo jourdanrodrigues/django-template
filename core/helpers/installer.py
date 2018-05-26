@@ -1,3 +1,4 @@
+import os
 import platform
 from distutils.spawn import find_executable
 from subprocess import Popen, PIPE
@@ -34,9 +35,16 @@ class Installer:
     def install(self):
         package_name = self.package_name  # Local variables are faster
 
-        print(PrettyText('Installing "{}"...'.format(package_name)).blue())
+        if os.getenv('CI') != 'true':
+            print(PrettyText('Installing "{}"...'.format(package_name)).blue())
+        else:
+            print(PrettyText('Skipping installation of "{}" on CI environment'.format(package_name)).yellow())
+            return
 
         apt_get_bin = find_executable('apt-get')
+        if not apt_get_bin:
+            print(PrettyText('Skipping since "apt-get" was not found in the system.'.format(package_name)).yellow())
+            return
 
         Popen([apt_get_bin, 'update', '-y']).wait()
         process = _run(apt_get_bin, 'install', '-y', package_name)
