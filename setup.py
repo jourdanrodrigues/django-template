@@ -43,7 +43,7 @@ setup(
     },
     install_requires=[
         'dj-database-url==0.4.2',
-        'Django==2.0.1',
+        'Django==2.0.5',
         'gunicorn==19.8.1',
         'psycopg2-binary==2.7.4',
         'requests==2.18.4',
