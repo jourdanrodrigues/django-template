@@ -46,5 +46,6 @@ setup(
         'Django==2.0.1',
         'gunicorn==19.8.1',
         'psycopg2==2.7.4',
+        'requests==2.18.4',
     ],
 )
