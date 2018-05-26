@@ -12,12 +12,13 @@ addons:
 env:
   global:
     - DATABASE_URL=postgres://user_name:user_password@localhost:5432/db_name
-    - SECRET_KEY=$(#98&$^!nf&lhp&6r6+o2$luf)ps9&%gs*r3mvcz1^4bfv@v3
-    - ALLOWED_HOSTS="*"
+    - SECRET_KEY='$(#98&$^!nf&lhp&6r6+o2$luf)ps9&%gs*r3mvcz1^4bfv@v3'
+    - ALLOWED_HOSTS='*'
 
 before_install:
-  - TEMPLATE_PATH=$(dirname `pwd`)
+  - TEMPLATE_PATH=`pwd`
   - mkdir ../testing && cd ../testing
+  - pip install django  # "django-admin" needs to be there before dependencies are installed
   - django-admin startproject --template=${TEMPLATE_PATH} --extension=po,yml,md,py testing .
 
 install: "pip install -e . coverage"
