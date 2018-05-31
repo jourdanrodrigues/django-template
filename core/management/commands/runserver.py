@@ -1,5 +1,5 @@
 from django.core.management import call_command
-from django.core.management.commands import runserver
+from django.contrib.staticfiles.management.commands import runserver  # It plugs the static url when DEBUG is True
 
 
 class Command(runserver.Command):
