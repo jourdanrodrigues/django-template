@@ -6,5 +6,6 @@ services:
     command: python manage.py runserver 0.0.0.0:8000 --migrate
     environment:
       - PRODUCTION=0
+      - ALLOWED_HOSTS=*
     volumes:
       - .:/app

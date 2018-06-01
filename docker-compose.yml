@@ -16,8 +16,9 @@ services:
     command: gunicorn -b 0.0.0.0:8000 core.wsgi --log-file -
     environment:
       - DATABASE_URL=postgres://{{ project_name }}_user:{{ project_name }}_pass@db/{{ project_name }}_db
-      - ALLOWED_HOSTS=*
       - PRODUCTION=1
+      # Set the following in your environment or in the ".env" file
+      - ALLOWED_HOSTS
     ports:
       - "8000:8000"
     links:
