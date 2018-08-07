@@ -28,6 +28,7 @@ DJANGO_APPS = [
 
 LOCAL_APPS = [
     'core',
+    'app',
 ]
 
 INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS
@@ -84,3 +85,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'core', 'locale'),
 ]
+
+AUTH_USER_MODEL = 'app.User'
