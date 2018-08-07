@@ -27,7 +27,7 @@ if [ ! ${?} -eq 0 ]; then
   ${PIP_BIN} install flake8 flake8-commas
 fi
 
-flake8 --install-hook git > /dev/null
+cp ./hooks/pre-commit ./.git/hooks
 
 DOT_ENV=${PROJECT_PATH}/.env
 
