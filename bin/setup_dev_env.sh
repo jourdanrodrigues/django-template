@@ -14,8 +14,8 @@ PIP_BIN=$(which pip)
 
 if [ ! ${?} -eq 0 ]; then
   print_blue 'Installing "pip"...'
-  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-  python get-pip.py && rm get-pip.py
+  curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+  python /tmp/get-pip.py
 
   PIP_BIN=$(which pip)
 fi
@@ -27,13 +27,7 @@ if [ ! ${?} -eq 0 ]; then
   ${PIP_BIN} install flake8 flake8-commas
 fi
 
-
-GIT_HOOKS_PATH=${PROJECT_PATH}/.git/hooks
-
-if [ ! -f ${GIT_HOOKS_PATH}/pre-commit ]; then
-  print_blue 'Putting "pre-commit" hook in place...'
-  cp ${PROJECT_PATH}/.hooks/pre-commit ${GIT_HOOKS_PATH}
-fi
+flake8 --install-hook git > /dev/null
 
 DOT_ENV=${PROJECT_PATH}/.env
 
