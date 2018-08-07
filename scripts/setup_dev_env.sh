@@ -33,7 +33,7 @@ DOT_ENV=${PROJECT_PATH}/.env
 
 if [ ! -f ${DOT_ENV} ]; then
   print_blue 'Creating ".env" file...'
-  echo "SECRET_KEY=$(python ${PROJECT_PATH}/bin/generate_secret_key.py)" > ${DOT_ENV}
+  echo "SECRET_KEY=$(python ${PROJECT_PATH}/scripts/generate_secret_key.py)" > ${DOT_ENV}
 fi
 
 print_green 'All good!'
