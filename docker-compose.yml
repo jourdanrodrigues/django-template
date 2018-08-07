@@ -19,6 +19,7 @@ services:
       - PRODUCTION=1
       # Set the following in your environment or in the ".env" file
       - ALLOWED_HOSTS
+      - SECRET_KEY
     ports:
       - "8000:8000"
     links:
