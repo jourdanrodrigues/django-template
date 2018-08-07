@@ -21,7 +21,7 @@ before_install:
   - pip install django  # "django-admin" needs to be there before dependencies are installed
   - django-admin startproject --template=${TEMPLATE_PATH} --extension=po,yml,md,py testing .
 
-install: "pip install -e . coverage"
+install: "pip install -r requirements.txt coverage"
 
 before_script:
   - psql -c "CREATE DATABASE db_name;" -U postgres
