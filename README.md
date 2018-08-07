@@ -25,7 +25,7 @@ You may remove this section from the `README.md` generated for your project.
 Before doing anything, run the following:
 
 ```bash
-./bin/setup_dev_env.sh
+./scripts/setup_dev_env.sh
 ```
 
 To make your life slightly easier, the script [`compose.sh`](compose.sh) is there for you to run commands in your
