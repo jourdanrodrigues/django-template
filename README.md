@@ -28,17 +28,19 @@ Before doing anything, run the following:
 ./scripts/setup_dev_env.sh
 ```
 
+## Running the app
+
 To make your life slightly easier, the script [`compose.sh`](compose.sh) is there for you to run commands in your
 container. It's just a wrapper for `docker-compose`, so you might want to take a look at
 [its documentation][docker-compose-docs].
 
-### Running the production version
+### Production version
 
 ```bash
 ./compose.sh up
 ```
 
-### Running the development version
+## Development version
 
 ```bash
 ./compose.sh dev up
