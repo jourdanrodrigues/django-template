@@ -34,13 +34,13 @@ To make your life slightly easier, the script [`compose.sh`](compose.sh) is ther
 container. It's just a wrapper for `docker-compose`, so you might want to take a look at
 [its documentation][docker-compose-docs].
 
-### Production version
+### Production mode
 
 ```bash
 ./compose.sh up
 ```
 
-## Development version
+### Development mode
 
 ```bash
 ./compose.sh dev up
