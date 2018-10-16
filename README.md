@@ -1,5 +1,7 @@
 # {{ project_name }}
 
+_Generated from [this Django template][template-link]._
+
 This project runs entirely on Docker containers. Make sure to [have it][docker-download] in your environment.
 
 ## Using this template
@@ -18,7 +20,7 @@ $ # Using "python -m django" instead of "django-admin" might fix.
 $ # "python" could also be "python2" or "python3".
 ```
 
-You may remove this section from the `README.md` generated for your project.  
+You may remove this section from the `README.md` generated for your project.
 
 ## Setting up development environment
 
@@ -46,5 +48,6 @@ container. It's just a wrapper for `docker-compose`, so you might want to take a
 ./compose.sh dev up
 ```
 
+[template-link]: https://github.com/jourdanrodrigues/django-template
 [docker-download]: https://www.docker.com/community-edition#/download
 [docker-compose-docs]: https://docs.docker.com/compose/reference/
