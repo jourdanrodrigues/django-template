@@ -2,20 +2,7 @@ import os
 
 from dj_database_url import config as db_config
 
-from core.helpers import DotEnvReader
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-DotEnvReader(os.path.join(BASE_DIR, '.env')).read()
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-
-PRODUCTION = bool(int(os.getenv('PRODUCTION', 0)))
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.getenv('DEBUG', not PRODUCTION)))
-
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '' if PRODUCTION else '*').split(',')
+from core.settings._environment import BASE_DIR
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -26,12 +13,15 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
+THIRD_PARTY_APPS = [
+]
+
 LOCAL_APPS = [
     'core',
     'app',
 ]
 
-INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS
+INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,9 +68,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = False
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'core', 'locale'),
