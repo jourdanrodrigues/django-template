@@ -6,6 +6,8 @@ This project runs entirely on Docker containers. Make sure to [have it][docker-d
 
 ## Using this template
 
+_Note_: If you intend to create an API, [head here][django-rest-template].
+
 Run the following to create a Django project with this repo as template:
 
 ```bash
@@ -51,3 +53,4 @@ container. It's just a wrapper for `docker-compose`, so you might want to take a
 [template-link]: https://github.com/jourdanrodrigues/django-template
 [docker-download]: https://www.docker.com/community-edition#/download
 [docker-compose-docs]: https://docs.docker.com/compose/reference/
+[django-rest-template]: https://github.com/jourdanrodrigues/django-template/blob/django-rest/README.md
