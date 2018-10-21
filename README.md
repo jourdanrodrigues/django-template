@@ -32,6 +32,12 @@ Before doing anything, run the following:
 ./scripts/setup_dev_env.sh
 ```
 
+## Database
+
+This project is setup on top of PostgreSQL, and the connection is established through an environment variable
+called DATABASE_URL. For more details, check the files [.env.example](.env.example) and
+[docker-compose.yml](docker-compose.yml).
+
 ## Running the app
 
 To make your life slightly easier, the script [`compose.sh`](compose.sh) is there for you to run commands in your
