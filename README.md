@@ -51,4 +51,3 @@ docker-compose run --rm server python manage.py test
 [template-link]: https://github.com/jourdanrodrigues/django-template
 [docker-download]: https://www.docker.com/community-edition#/download
 [docker-compose-docs]: https://docs.docker.com/compose/reference/
-[django-rest-template]: https://github.com/jourdanrodrigues/django-template/blob/django-rest/README.md
