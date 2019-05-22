@@ -13,13 +13,11 @@ Run the following to create a Django project with this repo as template:
 ```bash
 $ pip install django
 $ mkdir <your_project_name>
-$ django-admin startproject \
+$ python -m django startproject \
   --template=https://github.com/jourdanrodrigues/django-template/archive/master.zip \
   --extension=po,yml,md,py \
   ${_} ./${_}
-$ # If the above fails, you might have different versions of Python.
-$ # Using "python -m django" instead of "django-admin" might fix.
-$ # "python" could also be "python2" or "python3".
+$ # If it doesn't work, try "python2" or "python3" instead of "python".
 ```
 
 You may remove this section from the `README.md` generated for your project.

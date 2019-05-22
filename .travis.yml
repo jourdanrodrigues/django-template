@@ -20,7 +20,7 @@ before_install:
   - TEMPLATE_PATH=`pwd`
   - mkdir ../testing && cd ../testing
   - pip install django  # "django-admin" command is needed to create the project
-  - django-admin startproject --template=${TEMPLATE_PATH} --extension=po,yml,md,py testing .
+  - python -m django startproject --template=${TEMPLATE_PATH} --extension=po,yml,md,py testing .
 
 install: "pip install -r requirements.txt coverage"
 
