@@ -16,7 +16,7 @@ cd ${PROJECT_PATH}
 
 which flake8 > /dev/null
 
-if [ ! ${?} -eq 0 ]; then
+if [[ ! ${?} -eq 0 ]]; then
   # If Flake8 isn't installed, the setup didn't run
   ${PROJECT_PATH}/bin/setup_dev_env.sh
 fi
@@ -25,7 +25,7 @@ FLAKE8_OUTPUT=`git diff --cached | flake8 --diff 2>&1`
 
 STATUS_CODE=$?
 
-if [ ! ${STATUS_CODE} -eq 0 ]; then
+if [[ ! ${STATUS_CODE} -eq 0 ]]; then
   print_red "Flake8 caught some errors. See below:"
   print_yellow "${FLAKE8_OUTPUT}"
 fi
