@@ -12,6 +12,9 @@ class TestServer(TestCase):
         port = 8912
         server = make_server('', port, application)
         Thread(target=server.serve_forever).start()  # Start in a thread because it blocks the execution
-        response = requests.get('http://localhost:{}/'.format(port))  # Shouldn't raise exception
-        assert response.status_code
-        server.shutdown()
+        try:
+            requests.get('http://localhost:{}/'.format(port))
+        except ConnectionError:
+            raise AssertionError('Server is not starting')
+        finally:
+            server.shutdown()
