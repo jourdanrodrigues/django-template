@@ -4,6 +4,8 @@ from dj_database_url import config as db_config
 
 from core.settings._environment import BASE_DIR
 
+X_FRAME_OPTIONS = 'DENY'
+
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
