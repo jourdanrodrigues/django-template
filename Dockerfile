@@ -13,5 +13,5 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN ./manage.py collectstatic --no-input
-RUN ./manage.py compilemessages
+RUN SECRET_KEY=dummy ./manage.py collectstatic --no-input
+RUN SECRET_KEY=dummy ./manage.py compilemessages
