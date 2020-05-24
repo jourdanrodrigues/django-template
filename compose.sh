@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-CURRENT_DIR=$(dirname ${0})
-
 if [[ "${1}" == 'dev' ]]; then
   shift
-  COMMAND="docker-compose -f docker-compose.yml -f docker-compose.dev.yml"
-else
-  COMMAND="docker-compose"
+  COMMAND="-f docker-compose.yml -f docker-compose.dev.yml"
 fi
 
 if [[ "${1}" == 'run' ]]; then
@@ -17,6 +13,9 @@ fi
 if [[ "${1}" == 'manage.py' ]]; then
   shift
   COMMAND="${COMMAND} server python manage.py"
+elif [[ "${1}" == ./scripts/* ]]; then
+  COMMAND="${COMMAND} server ${1}"
+  shift
 fi
 
-${COMMAND} ${@}
+docker-compose ${COMMAND} ${@}
