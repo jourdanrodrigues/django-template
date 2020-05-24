@@ -1,10 +1,9 @@
 version: "3"
 
 services:
-
-  db:
+  database:
     container_name: {{ project_name }}_db
-    image: postgres:10.3
+    image: postgres:12-alpine
     environment:
       - POSTGRES_PASSWORD={{ project_name }}_pass
       - POSTGRES_USER={{ project_name }}_user
@@ -15,12 +14,12 @@ services:
     build: .
     command: gunicorn -b 0.0.0.0:8000 core.wsgi --log-file -
     environment:
-      - DATABASE_URL=postgres://{{ project_name }}_user:{{ project_name }}_pass@db/{{ project_name }}_db
+      - DATABASE_URL=postgres://{{ project_name }}_user:{{ project_name }}_pass@database/{{ project_name }}_db
       - PRODUCTION=1
-      # Set the following in your environment or in the ".env" file
+      # Set the following in a ".env" file
       - ALLOWED_HOSTS
       - SECRET_KEY
     ports:
       - "8000:8000"
     links:
-      - db
+      - database
