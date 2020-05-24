@@ -12,7 +12,7 @@ Run the following to create a Django project with this repo as template:
 
 ```bash
 $ pip install django
-$ mkdir <your_project_name>
+$ mkdir [your_project_name]
 $ python -m django startproject \
   --template=https://github.com/jourdanrodrigues/django-template/archive/master.zip \
   --extension=po,yml,md,py \
