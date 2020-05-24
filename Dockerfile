@@ -1,15 +1,13 @@
-FROM python:3.7
+FROM python:3.8-alpine
 
 WORKDIR /app/
 
-RUN apt-get update -y && \
-    apt-get install -y gettext && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN RUN apk add -qU --no-cache postgresql-libs gettext && \
+    apk add -q --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
 
 # Install dependencies first to keep it cached on file changes
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+    apk --purge del .build-deps
 
 COPY . .
 
