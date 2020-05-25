@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+PROJECT_PATH=$(dirname $(dirname $(dirname ${0})))
+
+`${PROJECT_PATH}/compose.sh run manage.py test`
+
+exit ${?}

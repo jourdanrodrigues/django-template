@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd $(dirname ${0})
+
 if [[ "${1}" == 'dev' ]]; then
   shift
   COMMAND="-f docker-compose.yml -f docker-compose.dev.yml"

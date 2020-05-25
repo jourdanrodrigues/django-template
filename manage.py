@@ -1,7 +1,29 @@
 #!/usr/bin/env python
 import os
+from os import path
 import sys
+from shutil import copyfile
+
 from django.core.management.utils import get_random_secret_key
+
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+
+
+def create_dot_env():
+    try:
+        with open(path.join(ROOT_PATH, '.env'), 'x') as dot_env:
+            dot_env.write(f'SECRET_KEY={get_random_secret_key()}')
+    except FileExistsError:
+        pass
+
+
+def place_git_hooks():
+    git_hooks_path = path.join(ROOT_PATH, '.git', 'hooks')
+    if path.exists(git_hooks_path) and not path.exists(path.join(git_hooks_path, 'pre-commit')):
+        hooks_path = path.join(ROOT_PATH, 'scripts', 'hooks')
+        copyfile(os.path.join(hooks_path, 'pre-push'), os.path.join(git_hooks_path, 'pre-push'))
+        copyfile(os.path.join(hooks_path, 'pre-commit'), os.path.join(git_hooks_path, 'pre-commit'))
+
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
@@ -15,10 +37,7 @@ if __name__ == '__main__':
         )
         raise ImportError(message) from exc
 
-    try:
-        with open('.env', 'x') as dot_env:
-            dot_env.write(f'SECRET_KEY={get_random_secret_key()}')
-    except FileExistsError:
-        pass
+    create_dot_env()
+    place_git_hooks()
 
     execute_from_command_line(sys.argv)
