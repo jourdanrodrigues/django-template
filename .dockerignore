@@ -1,5 +1,6 @@
 # Files
 .DS_Store
+docker-compose.dev.yml
 docker-compose.yml
 Dockerfile
 .dockerignore
@@ -9,10 +10,8 @@ Dockerfile
 *.py[cod]
 compose.sh
 setup.cfg
+README.md
 
 # Directories
-bin/
-build/
-dist/
-.hooks/
+scripts/hooks/
 .idea/
