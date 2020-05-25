@@ -2,10 +2,11 @@ FROM python:3.8-alpine
 
 WORKDIR /app/
 
-RUN RUN apk add -qU --no-cache postgresql-libs gettext && \
+RUN apk add -qU --no-cache postgresql-libs gettext && \
     apk add -q --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
 
-# Install dependencies first to keep it cached on file changes
+COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt && \
     apk --purge del .build-deps
 

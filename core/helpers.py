@@ -12,8 +12,8 @@ class DotEnvReader:
 
     def read(self) -> None:
         try:
-            with open(self.path) as f:
-                content = f.read()
+            with open(self.path) as file:
+                content = file.read()
         except IOError:
             return
 

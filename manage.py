@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import os
-from os import path
+import stat
 import sys
+from os import path
 from shutil import copyfile
 
 from django.core.management.utils import get_random_secret_key
@@ -17,12 +18,17 @@ def create_dot_env():
         pass
 
 
+def copy_executable(src, dst):
+    copyfile(src, dst)
+    os.chmod(dst, os.stat(dst).st_mode | stat.S_IEXEC)
+
+
 def place_git_hooks():
     git_hooks_path = path.join(ROOT_PATH, '.git', 'hooks')
     if path.exists(git_hooks_path) and not path.exists(path.join(git_hooks_path, 'pre-commit')):
         hooks_path = path.join(ROOT_PATH, 'scripts', 'hooks')
-        copyfile(os.path.join(hooks_path, 'pre-push'), os.path.join(git_hooks_path, 'pre-push'))
-        copyfile(os.path.join(hooks_path, 'pre-commit'), os.path.join(git_hooks_path, 'pre-commit'))
+        copy_executable(os.path.join(hooks_path, 'pre-push'), os.path.join(git_hooks_path, 'pre-push'))
+        copy_executable(os.path.join(hooks_path, 'pre-commit'), os.path.join(git_hooks_path, 'pre-commit'))
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 
-bandit -r . -x ./app/tests,./venv
+echo 'Running Bandit...'
+
+bandit -r . -x ./app/tests

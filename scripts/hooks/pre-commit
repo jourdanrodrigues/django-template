@@ -1,14 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 PROJECT_PATH=$(dirname $(dirname $(dirname ${0})))
 
-`${PROJECT_PATH}/compose.sh run ./scripts/pylint.sh`
-PY_LINT=${?}
-`${PROJECT_PATH}/compose.sh run ./scripts/flake8.sh`
-FLAKE8=${?}
-`${PROJECT_PATH}/compose.sh run ./scripts/bandit.sh`
-BANDIT=${?}
+${PROJECT_PATH}/compose.sh dev run server sh -c "./scripts/flake8.sh && ./scripts/bandit.sh && ./scripts/pylint.sh"
 
-if [[ ${PY_LINT} != 0 ]] || [[ ${FLAKE8} != 0 ]] || [[ ${BANDIT} != 0 ]]; then
-  exit 1
-fi
+exit ${?}
