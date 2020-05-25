@@ -72,7 +72,7 @@ USE_L10N = True
 USE_TZ = False
 
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'core', 'locale'),
+    os.path.join(BASE_DIR, 'app', 'locale'),
 ]
 
 AUTH_USER_MODEL = 'app.User'
