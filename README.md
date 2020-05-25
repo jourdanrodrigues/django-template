@@ -41,12 +41,17 @@ docker-compose run --rm server sh
 
 # Scripts
 ./compose.sh run ./scripts/pylint.sh  # becomes the below
-docker-compose run --rm ./scripts/pylint.sh
+docker-compose run --rm server ./scripts/pylint.sh
 
 # "manage.py" commands
 ./compose.sh run manage.py test  # becomes the below
 docker-compose run --rm server python manage.py test
 ```
+
+- `~ dev ~` = `~ -f docker-compose.yml -f docker-compose.dev.yml ~`
+- `~ run ~` = `~ run --rm ~`
+- `~ ./scripts/* ~` = `~ server ./scripts/* ~`
+- `~ manage.py ~` = `~ server manage.py ~`
 
 [template-link]: https://github.com/jourdanrodrigues/django-template
 [docker-download]: https://www.docker.com/community-edition#/download
