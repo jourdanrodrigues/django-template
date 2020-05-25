@@ -1,26 +1,8 @@
 # {{ project_name }}
 
-_Generated from [this Django template][template-link]._
+_Generated from [Jourdan's Django template][template-link]._
 
 This project runs entirely on Docker containers. Make sure to [have it][docker-download] in your environment.
-
-## Using this template
-
-_Note_: If you intend to create an API, [head here][django-rest-template].
-
-Run the following to create a Django project with this repo as template:
-
-```bash
-$ pip install django
-$ mkdir [your_project_name]
-$ python -m django startproject \
-  --template=https://github.com/jourdanrodrigues/django-template/archive/master.zip \
-  --extension=po,yml,md,py \
-  ${_} ./${_}
-$ # If it doesn't work, try "python2" or "python3" instead of "python".
-```
-
-You may remove this section from the `README.md` generated for your project.
 
 ## Setting up development environment
 
@@ -32,26 +14,38 @@ Before doing anything, run the following:
 
 ## Database
 
-This project is setup on top of PostgreSQL, and the connection is established through an environment variable
-called DATABASE_URL. For more details, check the files [.env.example](.env.example) and
-[docker-compose.yml](docker-compose.yml).
+This project depends on PostgreSQL and the connection is established through an environment variable called
+DATABASE_URL. Check the files [.env.example](.env.example) and [docker-compose.yml](docker-compose.yml) for details.
 
 ## Running the app
 
-To make your life slightly easier, the script [`compose.sh`](compose.sh) is there for you to run commands in your
-container. It's just a wrapper for `docker-compose`, so you might want to take a look at
-[its documentation][docker-compose-docs].
-
-### Production mode
+The script [`compose.sh`](compose.sh) is there for you to run commands in the container. It's just a wrapper for
+ `docker-compose`, so you might want to take a look at [its documentation][docker-compose-docs].
 
 ```bash
 ./compose.sh up
 ```
 
-### Development mode
+### `./compose.sh` shortcuts
+
+The script has the same API as docker-compose, with a few adjustments:
 
 ```bash
-./compose.sh dev up
+# Running development setup
+./compose.sh dev up  # becomes the below
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+# "run"
+./compose.sh run server sh  # becomes the below
+docker-compose run --rm server sh
+
+# Scripts
+./compose.sh run ./scripts/pylint.sh  # becomes the below
+docker-compose run --rm ./scripts/pylint.sh
+
+# "manage.py" commands
+./compose.sh run manage.py test  # becomes the below
+docker-compose run --rm server python manage.py test
 ```
 
 [template-link]: https://github.com/jourdanrodrigues/django-template
