@@ -2,6 +2,6 @@
 
 PROJECT_PATH=$(dirname $(dirname $(dirname ${0})))
 
-${PROJECT_PATH}/compose.sh dev run server sh -c "./scripts/flake8.sh && ./scripts/bandit.sh && ./scripts/pylint.sh"
+${PROJECT_PATH}/compose.sh dev run ./scripts/run_linters.sh
 
 exit ${?}

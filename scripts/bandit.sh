@@ -2,4 +2,4 @@
 
 echo 'Running Bandit...'
 
-bandit -r . -x ./app/tests
+bandit --quiet --recursive . --exclude ./app/tests
