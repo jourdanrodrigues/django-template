@@ -4,14 +4,6 @@ _Generated from [Jourdan's Django template][template-link]._
 
 This project runs entirely on Docker containers. Make sure to [have it][docker-download] in your environment.
 
-## Setting up development environment
-
-Before doing anything, run the following:
-
-```bash
-./scripts/setup_dev_env.sh
-```
-
 ## Database
 
 This project depends on PostgreSQL and the connection is established through an environment variable called
