@@ -13,5 +13,5 @@ setup.cfg
 README.md
 
 # Directories
-scripts/hooks/
 .idea/
+.devdb/
