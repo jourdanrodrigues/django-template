@@ -9,7 +9,7 @@ This project runs entirely on Docker containers. Make sure to [have it](https://
 This projects makes use of [`pre-commit`](https://pre-commit.com/#install). Make sure it's installed in your dev-environment with the following command:
 
 ```bash
-precommit install
+pre-commit install
 ```
 
 ## Database
