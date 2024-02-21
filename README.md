@@ -33,17 +33,17 @@ The script has the same API as docker-compose, with a few adjustments:
 ```bash
 # Running development setup
 ./compose.sh dev up  # becomes the below
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+docker compose -f docker compose.yml -f docker compose.dev.yml up
 
 # "run"
 ./compose.sh run server sh  # becomes the below
-docker-compose run --rm server sh
+docker compose run --rm server sh
 
 # "manage.py" commands
 ./compose.sh run manage.py test  # becomes the below
-docker-compose run --rm server python manage.py test
+docker compose run --rm server python manage.py test
 ```
 
-- `~ dev ~` = `~ -f docker-compose.yml -f docker-compose.dev.yml ~`
+- `~ dev ~` = `~ -f docker compose.yml -f docker compose.dev.yml ~`
 - `~ run ~` = `~ run --rm ~`
 - `~ manage.py ~` = `~ server manage.py ~`
