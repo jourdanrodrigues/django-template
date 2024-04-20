@@ -1,9 +1,19 @@
+import json
 import re
 
-from django.db import connections, DEFAULT_DB_ALIAS
+from django.db import DEFAULT_DB_ALIAS, connections
 from django.test import TestCase as DjangoTestCase
-
 from django.test.testcases import CaptureQueriesContext, _AssertNumQueriesContext
+from rest_framework import status
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
+from rest_framework.test import APITestCase as DRFAPITestCase
+
+
+def extract_response_data(response: Response):
+    if not hasattr(response, "data"):
+        return response.content
+    return json.loads(JSONRenderer().render(response.data))
 
 
 class AssertNumQueriesContext(_AssertNumQueriesContext):
@@ -17,11 +27,10 @@ class AssertNumQueriesContext(_AssertNumQueriesContext):
         if exc_type is not None:
             return
 
-        expected = len(re.findall(r'\d+\.\s', self.expected_queries, re.IGNORECASE))
+        expected = len(re.findall(r"\d+\.\s", self.expected_queries, re.IGNORECASE))
         executed = len(self.captured_queries)
         captured_queries_str = "\n".join(
-            f"{i}. {query['sql']}"
-            for i, query in enumerate(self.captured_queries, start=1)
+            f"{i}. {query['sql']}" for i, query in enumerate(self.captured_queries, start=1)
         )
         self.test_case.assertEqual(
             executed,
@@ -50,3 +59,34 @@ class TestCase(DjangoTestCase):
 
         with context:
             func(*args, **kwargs)
+
+
+class APITestCase(DRFAPITestCase):
+    def assertResponse(self, response: Response, status_code: int, expected_data) -> None:
+        self.assertListEqual(
+            [response.status_code, extract_response_data(response)],
+            [status_code, expected_data],
+        )
+
+    def assertNotFoundResponse(self, response: Response, message: str | None = None) -> None:
+        self.assertResponse(response, status.HTTP_404_NOT_FOUND, {"detail": message or "Not found."})
+
+    def assertUnauthorizedResponse(self, response: Response, expected_data: dict | None = None) -> None:
+        data = expected_data or {"detail": "Authentication credentials were not provided."}
+        self.assertResponse(response, status.HTTP_401_UNAUTHORIZED, data)
+
+    def assertBadRequestResponse(self, response: Response, expected_data: dict) -> None:
+        self.assertResponse(response, status.HTTP_400_BAD_REQUEST, expected_data)
+
+    def assertOkResponse(self, response: Response, expected_data: list | dict | None) -> None:
+        self.assertResponse(response, status.HTTP_200_OK, expected_data)
+
+    def assertCreatedResponse(self, response: Response, expected_data: dict) -> None:
+        self.assertResponse(response, status.HTTP_201_CREATED, expected_data)
+
+    def assertForbiddenResponse(self, response: Response, message: str | None = None) -> None:
+        message = message or "You do not have permission to perform this action."
+        self.assertResponse(response, status.HTTP_403_FORBIDDEN, {"detail": message})
+
+    def assertNoContentResponse(self, response: Response) -> None:
+        self.assertResponse(response, status.HTTP_204_NO_CONTENT, None)
