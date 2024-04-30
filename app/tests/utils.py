@@ -3,7 +3,7 @@ import re
 
 from django.db import DEFAULT_DB_ALIAS, connections
 from django.test import TestCase as DjangoTestCase
-from django.test.testcases import CaptureQueriesContext, _AssertNumQueriesContext
+from django.test.testcases import CaptureQueriesContext
 from rest_framework import status
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -16,11 +16,11 @@ def extract_response_data(response: Response):
     return json.loads(JSONRenderer().render(response.data))
 
 
-class AssertNumQueriesContext(_AssertNumQueriesContext):
+class AssertNumQueriesContext(CaptureQueriesContext):
     def __init__(self, test_case: DjangoTestCase, queries: str, connection):
         self.test_case = test_case
         self.expected_queries = queries
-        super(CaptureQueriesContext, self).__init__(connection)
+        super().__init__(connection)
 
     def __exit__(self, exc_type, exc_value, traceback):
         super().__exit__(exc_type, exc_value, traceback)
