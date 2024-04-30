@@ -1,27 +1,25 @@
 import re
 
-from django.db import connections, DEFAULT_DB_ALIAS
+from django.db import DEFAULT_DB_ALIAS, connections
 from django.test import TestCase as DjangoTestCase
+from django.test.testcases import CaptureQueriesContext
 
-from django.test.testcases import CaptureQueriesContext, _AssertNumQueriesContext
 
-
-class AssertNumQueriesContext(_AssertNumQueriesContext):
+class AssertNumQueriesContext(CaptureQueriesContext):
     def __init__(self, test_case: DjangoTestCase, queries: str, connection):
         self.test_case = test_case
         self.expected_queries = queries
-        super(CaptureQueriesContext, self).__init__(connection)
+        super().__init__(connection)
 
     def __exit__(self, exc_type, exc_value, traceback):
         super().__exit__(exc_type, exc_value, traceback)
         if exc_type is not None:
             return
 
-        expected = len(re.findall(r'\d+\.\s', self.expected_queries, re.IGNORECASE))
+        expected = len(re.findall(r"\d+\.\s", self.expected_queries, re.IGNORECASE))
         executed = len(self.captured_queries)
         captured_queries_str = "\n".join(
-            f"{i}. {query['sql']}"
-            for i, query in enumerate(self.captured_queries, start=1)
+            f"{i}. {query['sql']}" for i, query in enumerate(self.captured_queries, start=1)
         )
         self.test_case.assertEqual(
             executed,
