@@ -27,29 +27,23 @@ class AssertNumQueriesContext(CaptureQueriesContext):
         if exc_type is not None:
             return
 
-        expected = len(re.findall(r"\d+\.\s", self.expected_queries, re.IGNORECASE))
-        executed = len(self.captured_queries)
-        captured_queries_str = "\n".join(
-            f"{i}. {query['sql']}" for i, query in enumerate(self.captured_queries, start=1)
-        )
-        self.test_case.assertEqual(
-            executed,
-            expected,
-            f"{executed} queries executed, {expected} expected\nCaptured queries were:\n{captured_queries_str}",
-        )
+        expected_queries = re.findall(r"\d+\.\s[^\n\r]+", self.expected_queries, re.IGNORECASE)
+        captured_queries = [f"{i}. {query['sql']}" for i, query in enumerate(self.captured_queries, start=1)]
+        self.test_case.assertListEqual(captured_queries, expected_queries)
 
 
 class TestCase(DjangoTestCase):
     def assertQueries(self, queries: str = "", func=None, *args, using=DEFAULT_DB_ALIAS, **kwargs):
         """
         Usage:
-            with self.assertQueries(\"""
-                1. SELECT * FROM table_name
-                2. SELECT * FROM another_table_name
+            with self.assertQueries(f\"""
+                1. SELECT * FROM table_name WHERE id = {instance.id}
+                2. SELECT * FROM another_table_name WHERE date = {timezone.now().date().isoformat()}::date
             \"""):
                 # your code here
 
-            To generate the expected queries, you can just call it empty and copy the "Captured queries were" text block
+            To generate the expected queries, you can call this with an empty string, copy the "Captured queries were"
+            text block and replace the values with your data.
         """
         conn = connections[using]
 
