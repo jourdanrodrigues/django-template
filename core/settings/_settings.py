@@ -1,5 +1,3 @@
-import os
-
 from dj_database_url import config as db_config
 
 from core.settings._environment import BASE_DIR
@@ -71,11 +69,10 @@ LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "app", "locale"),
+    BASE_DIR / "app" / "locale",
 ]
 
 AUTH_USER_MODEL = "app.User"
