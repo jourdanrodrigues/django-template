@@ -13,7 +13,7 @@ class TestServer(TestCase):
         server = make_server("", port, application)
         Thread(target=server.serve_forever).start()  # Start in a thread because it blocks the execution
         try:
-            requests.get("http://localhost:{}/".format(port))
+            requests.get("http://localhost:{}/".format(port))  # nosec B113
         except ConnectionError:
             raise AssertionError("Server is not starting")
         finally:
