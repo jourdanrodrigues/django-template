@@ -6,12 +6,12 @@ authors = []
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.12.1"
+python = "3.12.4"
 dj-database-url = "*"
 django = "*"
 django-cors-headers = "*"
 gunicorn = "*"
-psycopg2-binary = "*"
+psycopg = { version = "*", extras = ["binary"] }
 requests = "*"
 python-dotenv = "*"
 djangorestframework = "*"
