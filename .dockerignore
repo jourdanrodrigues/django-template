@@ -12,8 +12,8 @@ compose.sh
 setup.cfg
 README.md
 .pre-commit-config.yaml
-.devdb
 
 # Directories
 .idea/
-.devdb/
+.dev-data/
+.venv/

@@ -1,22 +1,15 @@
-[tool.poetry]
-name = "{{ project_name }}_backend"
-version = "0.1.0"
-description = ""
-authors = []
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "3.12.4"
-dj-database-url = "*"
-django = "*"
-django-cors-headers = "*"
-gunicorn = "*"
-psycopg = { version = "*", extras = ["binary"] }
-requests = "*"
-python-dotenv = "*"
-djangorestframework = "*"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project]
+version = "1.0.0"
+name = "{{ project_name }}_server"
+package-mode = false
+requires-python = "==3.13.3"
+dependencies = [
+    "dj-database-url==2.3.0",
+    "django==5.2.1",
+    "django-cors-headers==4.7.0",
+    "gunicorn==23.0.0",
+    "psycopg[binary]==3.2.7",
+    "requests==2.32.3",
+    "python-dotenv==1.1.0",
+    "djangorestframework==3.16.0",
+]

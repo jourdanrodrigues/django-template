@@ -1,15 +1,14 @@
-version: "3"
-
 services:
   database:
     container_name: {{ project_name }}_database
-    image: postgres:16.0-alpine
+    image: postgres:17.5-alpine
     environment:
       - POSTGRES_PASSWORD={{ project_name }}_pass
       - POSTGRES_USER={{ project_name }}_user
       - POSTGRES_DB={{ project_name }}_db
 
   server:
+    image: {{ project_name }}_server
     container_name: {{ project_name }}_server
     build: .
     command: gunicorn -b 0.0.0.0:8000 core.wsgi --log-file -

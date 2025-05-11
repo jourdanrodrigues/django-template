@@ -1,19 +1,19 @@
 from threading import Thread
-from unittest import TestCase
 from wsgiref.simple_server import make_server
 
 import requests
+from django.test import SimpleTestCase
 
 from core.wsgi import application
 
 
-class TestServer(TestCase):
+class TestServer(SimpleTestCase):
     def test_that_server_turns_on_ok_through_wsgi(self):
         port = 8912
         server = make_server("", port, application)
         Thread(target=server.serve_forever).start()  # Start in a thread because it blocks the execution
         try:
-            requests.get("http://localhost:{}/".format(port))  # nosec B113
+            requests.get(f"http://localhost:{port}/")  # nosec B113
         except ConnectionError:
             raise AssertionError("Server is not starting")
         finally:

@@ -1,18 +1,19 @@
-FROM python:3.12.4-alpine
+FROM python:3.13.3-slim-bullseye
 
 WORKDIR /app/
 
-RUN apk add -qU --no-cache postgresql-libs gettext && \
-    apk add -q --no-cache --virtual .build-deps gcc musl-dev postgresql-dev libffi-dev jpeg-dev zlib-dev && \
-    pip install --no-cache-dir "poetry==1.8.3" && \
-    poetry config virtualenvs.create false
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends libpq-dev g++ libffi-dev \
 
-COPY poetry.lock pyproject.toml ./
+RUN curl -LsSf https://astral.sh/uv/0.7.3/install.sh | sh
 
-RUN poetry install --no-root --no-cache --no-interaction && \
-    apk --purge del .build-deps
+COPY uv.lock pyproject.toml ./
+
+RUN uv sync --no-cache && \
+    apt-get purge -y --auto-remove && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
-RUN SECRET_KEY=dummy ./manage.py collectstatic --no-input
 RUN SECRET_KEY=dummy ./manage.py compilemessages
