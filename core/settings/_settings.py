@@ -76,3 +76,4 @@ LOCALE_PATHS = [
 ]
 
 AUTH_USER_MODEL = "app.User"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
