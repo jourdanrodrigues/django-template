@@ -1,5 +1,3 @@
-from dj_database_url import config as db_config
-
 from core.settings._environment import BASE_DIR
 
 X_FRAME_OPTIONS = "DENY"
@@ -55,8 +53,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-
-DATABASES = {"default": db_config()}
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
