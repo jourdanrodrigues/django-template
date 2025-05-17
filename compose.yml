@@ -6,19 +6,28 @@ services:
       - POSTGRES_PASSWORD={{ project_name }}_pass
       - POSTGRES_USER={{ project_name }}_user
       - POSTGRES_DB={{ project_name }}_db
+    volumes:
+      - ./.dev-data/pgsql:/var/lib/postgresql/data
+
+  redis:
+    image: redis:8.0.1-alpine
+    container_name: {{ project_name }}_redis
+    volumes:
+      - ./.dev-data/redis:/data
 
   server:
     image: {{ project_name }}_server
     container_name: {{ project_name }}_server
     build: .
-    command: gunicorn -b 0.0.0.0:8000 core.wsgi --log-file -
+    command: python manage.py runserver 0.0.0.0:8000
     environment:
       - DATABASE_URL=postgres://{{ project_name }}_user:{{ project_name }}_pass@database/{{ project_name }}_db
-      - PRODUCTION=true
-      # Set the following in a ".env" file
-      - ALLOWED_HOSTS
-      - SECRET_KEY
+      - PRODUCTION=false
+      - ALLOWED_HOSTS=*
     ports:
       - "8000:8000"
     links:
       - database
+      - redis
+    volumes:
+      - .:/app

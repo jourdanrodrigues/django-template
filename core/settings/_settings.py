@@ -1,5 +1,3 @@
-from dj_database_url import config as db_config
-
 from core.settings._environment import BASE_DIR
 
 X_FRAME_OPTIONS = "DENY"
@@ -15,6 +13,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "drf_spectacular",
     "corsheaders",
 ]
 
@@ -57,8 +56,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-DATABASES = {"default": db_config()}
-
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -78,3 +75,8 @@ LOCALE_PATHS = [
 
 AUTH_USER_MODEL = "app.User"
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}

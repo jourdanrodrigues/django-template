@@ -9,6 +9,8 @@ ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 def create_dot_env():
+    if os.getenv("SECRET_KEY"):
+        return
     try:
         with open(path.join(ROOT_PATH, ".env"), "x") as dot_env:
             dot_env.write(f"SECRET_KEY='{get_random_secret_key()}'")
