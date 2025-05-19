@@ -1,22 +1,6 @@
 #!/usr/bin/env python
 import os
 import sys
-from os import path
-
-from django.core.management.utils import get_random_secret_key
-
-ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-
-
-def create_dot_env():
-    if os.getenv("SECRET_KEY"):
-        return
-    try:
-        with open(path.join(ROOT_PATH, ".env"), "x") as dot_env:
-            dot_env.write(f"SECRET_KEY='{get_random_secret_key()}'")
-    except FileExistsError:
-        pass
-
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
@@ -29,7 +13,5 @@ if __name__ == "__main__":
             "forget to activate a virtual environment?"
         )
         raise ImportError(message) from exc
-
-    create_dot_env()
 
     execute_from_command_line(sys.argv)

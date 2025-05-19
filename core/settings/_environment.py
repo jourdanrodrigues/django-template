@@ -29,9 +29,17 @@ DEBUG = bool_env("DEBUG", not PRODUCTION)
 TESTING = "test" in sys.argv
 
 ALLOWED_HOSTS = get_host_env("ALLOWED_HOSTS", [] if PRODUCTION else ["*"])
-ALLOWED_CLIENTS = get_host_env("ALLOWED_CLIENTS", ALLOWED_HOSTS)
-
-SEND_EMAILS = bool_env("SEND_EMAILS", default=not TESTING and PRODUCTION)
+ALLOWED_CLIENTS = get_host_env("ALLOWED_CLIENTS", [])
 
 SENTRY_DSN = os.getenv("SENTRY_DSN")
 SENTRY_ENV = os.getenv("SENTRY_ENV")
+
+if not PRODUCTION and not SECRET_KEY:
+    from django.core.management.utils import get_random_secret_key
+
+    SECRET_KEY = get_random_secret_key()
+    try:
+        with open(BASE_DIR / ".env", "x") as dot_env:
+            dot_env.write(f"SECRET_KEY='{SECRET_KEY}'")
+    except FileExistsError:
+        pass

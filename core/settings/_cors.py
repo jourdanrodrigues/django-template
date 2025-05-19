@@ -1,6 +1,3 @@
-from core.settings._environment import ALLOWED_CLIENTS, PRODUCTION
+from core.settings._environment import ALLOWED_CLIENTS
 
-if PRODUCTION:
-    CORS_ORIGIN_WHITELIST = ALLOWED_CLIENTS
-else:
-    CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = ALLOWED_CLIENTS
