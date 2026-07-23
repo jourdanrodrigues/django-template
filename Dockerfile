@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends curl gettext libpq-dev g++ libffi-dev
 
-RUN curl -LsSf https://astral.sh/uv/0.7.3/install.sh | sh && \
+RUN curl -LsSf https://astral.sh/uv/0.11.31/install.sh | sh && \
     ln -s /root/.local/bin/uv /usr/local/bin/uv
 
 COPY ./uv.lock ./pyproject.toml ./
